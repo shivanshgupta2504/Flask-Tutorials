@@ -13,4 +13,38 @@
         <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/plain" required="required">
         <input type="submit" value="Upload File">
     </form>
+
+    <h1>Convert To CSV</h1>
+    <form action="{{ url_for('convert_csv') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required="required">
+        <input type="submit" value="Convert File">
+    </form>
+
+    <h1>Convert To CSV Two</h1>
+    <form action="{{ url_for('convert_csv_two') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required="required">
+        <input type="submit" value="Convert File 2">
+    </form>
+
+    <h1>JavaScript JSON Request</h1>
+    <button id="post_button">Sent POST Request</button>
+
+    <script type="text/javascript">
+        const postButton = document.getElementById("post_button");
+
+        const jsonData = {"name": "Shivansh", "greeting": "Hello"};
+
+        postButton.addEventListener("click", () => {
+            fetch("{{ url_for('handle_post') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify(jsonData)
+            })
+                .then(response => response.json())
+                .then(data => console.log("Success: ", data))
+                .catch(err => console.log("Error: ", err));
+        });
+    </script>
 {% endblock %}
